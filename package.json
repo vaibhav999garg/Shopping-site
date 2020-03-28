@@ -1,0 +1,20 @@
+{
+  "name": "learning_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "learn_play.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node learn_play.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaibhav999garg/nodejs.git"
+  },
+  "author": "Vaibhav Garg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaibhav999garg/nodejs/issues"
+  }
+  
+}
