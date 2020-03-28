@@ -1,2 +1,0 @@
-Hello Vaibhav!
-If you are reading this it means you have successfully learnt how to create and write into a file.
