@@ -1,3 +1,5 @@
+//used in case of no express
+
 const fs = require('fs');
 
 const requestHandler = (req, res) => {

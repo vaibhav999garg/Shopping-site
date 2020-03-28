@@ -51,16 +51,28 @@
 
 
 
+//node modules - included by express itself
+// const http = require('http');
 
-const http = require('http');
+// third party modules
+const express = require('express');
 
-// const routes = require('./routes');
+const app = express();
 
-// const server = http.createServer(routes.handler);
-const server = http.createServer();
-console.log(routes.text);
+app.use('/app-product', (req,res,next) =>{
+    res.send('<h1>This is app product</h1>');
+});
 
-server.listen(3000);
+app.use('/', (req,res,next) => {
+    console.log("In the middleware");
+    res.send('<h1>This is the home page</h1>');
+});
+
+
+//did both - created a server and started listening the requests, here function is optional i.e. "app.listen(3000);" is enough
+app.listen(3000, () => {
+    console.log(`Server started on port`);
+});
 
 
 
