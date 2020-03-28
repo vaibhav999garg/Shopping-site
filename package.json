@@ -5,7 +5,7 @@
   "main": "learn_play.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node learn_play.js"
+    "start": "nodemon learn_play.js"
   },
   "repository": {
     "type": "git",
