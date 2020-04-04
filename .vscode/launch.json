@@ -14,7 +14,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\learn_play.js",
-            "restart": true,
+            "restart": true,//used for debugger to auto restart
             "runtimeExecutable": "nodemon",
             "console": "integratedTerminal"
         }
