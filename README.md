@@ -3,7 +3,7 @@ Learning node, express, mongodb and much more
 
 Here I am using VS code. You can use anyone you want to, its your choice.
 
-Just pull learn_play.js and routes.js.
+Just pull learn_play.js, routes folder files(admin and shop) and routes.js(in case you are not using express).
 All other will be downloaded automatically when you will execute commands.
 
 Nodejs should be installed in it.(npm will be automatically downloaded and installed)
