@@ -56,18 +56,19 @@
 
 // third party modules
 const express = require('express');
+const bodyParser = require('body-parser');
+
+//my own modules
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
 
 const app = express();
 
-app.use('/app-product', (req,res,next) =>{
-    res.send('<h1>This is app product</h1>');
-});
+// to store data in the body
+app.use(bodyParser.urlencoded({extended: false}) );
 
-app.use('/', (req,res,next) => {
-    console.log("In the middleware");
-    res.send('<h1>This is the home page</h1>');
-});
-
+app.use(adminRoutes);
+app.use(shopRoutes);
 
 //did both - created a server and started listening the requests, here function is optional i.e. "app.listen(3000);" is enough
 app.listen(3000, () => {

@@ -25,8 +25,9 @@ Used npm :
     Nodemon - it will automatically restart the server after saving the changes in the files; no need to quit and start again.
     Installed node modules including nodemon using - "npm install nodemon --save-dev"{development dependencies}(installs in current
                                                         folder only not globally, use "npm install -g nodemon" to install globally).
-    Next time use only npm install to install node modules as your package.json will contain the the nodemon version.
-    To install express use - "npm install --save express"(production dependencies).
+    Next time use only npm install to update/install(if deleted) node modules as your package.json will contain the the nodemon version.
+    To install express - "npm install --save express"(production dependencies).
+    To install body-parser(which is used to store data) - "npm install --save body-parser"(production package)
 
 You can use debugger to check for logical errors which are hard to find.
 
