@@ -67,8 +67,11 @@ const app = express();
 // to store data in the body
 app.use(bodyParser.urlencoded({extended: false}) );
 
-app.use(adminRoutes);
-app.use(shopRoutes);
+app.use(adminRoutes.router);
+app.use(shopRoutes.router);
+app.use((req,res,next) => {
+    res.status(404).send('<h1>Page not found</h1>');
+});
 
 //did both - created a server and started listening the requests, here function is optional i.e. "app.listen(3000);" is enough
 app.listen(3000, () => {
