@@ -15,6 +15,8 @@ admin.js - file containing requests from admin only
 shop.js - file containing normal requests
 shop.html - shop request html page 
 add-product - html page of add-product request
+main.css - styling common in all html pages
+public - made available statically
 
 Execute nodejs files using : "node <file name>".
 After installing nodemon (npm) globally : "nodemon <file name>"(if you will try this after installing locally, it will show error).
@@ -34,6 +36,3 @@ Used npm :
     To install body-parser(which is used to store data) - "npm install --save body-parser"(production package)
 
 You can use debugger to check for logical errors which are hard to find.
-
-
-  

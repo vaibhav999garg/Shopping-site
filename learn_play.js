@@ -53,30 +53,29 @@
 
 //node modules - included by express itself
 // const http = require('http');
-
 // third party modules
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const path = require('path');
 //my own modules
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 const app = express();
-
 // to store data in the body
-app.use(bodyParser.urlencoded({extended: false}) );
-
+app.use(bodyParser.urlencoded({extended: true}) );
+// to statically import files in the html pages
+app.use(express.static(path.join(__dirname, 'public')));
+// routing
 app.use('/admin', adminRoutes.router);
 app.use(shopRoutes.router);
 app.use((req,res,next) => {
-    res.status(404).send('<h1>Page not found</h1>');
+    res.status(404).sendFile(path.join(__dirname, 'html pages', '404.html'));
 });
-
 //did both - created a server and started listening the requests, here function is optional i.e. "app.listen(3000);" is enough
 app.listen(3000, () => {
     console.log(`Server started on port`);
-});
+}); 
 
 
 
