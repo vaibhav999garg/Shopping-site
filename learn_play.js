@@ -67,7 +67,7 @@ const app = express();
 // to store data in the body
 app.use(bodyParser.urlencoded({extended: false}) );
 
-app.use(adminRoutes.router);
+app.use('/admin', adminRoutes.router);
 app.use(shopRoutes.router);
 app.use((req,res,next) => {
     res.status(404).send('<h1>Page not found</h1>');
