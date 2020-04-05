@@ -3,7 +3,7 @@ Learning node, express, mongodb and much more
 
 Here I am using VS code. You can use anyone you want to, its your choice.
 
-Just pull learn_play.js, routes folder files(admin and shop) and routes.js(in case you are not using express).
+Just pull learn_play.js, html pages folder, routes folder files(admin and shop) and routes.js(in case you are not using express).
 All other will be downloaded automatically when you will execute commands.
 
 Nodejs should be installed in it.(npm will be automatically downloaded and installed)
@@ -11,6 +11,10 @@ Used express; you can use other alternatives like vanilla.
 
 learn_play.js - main running file(node code)
 routes.js - contains routing code which is called by learn_play.js(without express)
+admin.js - file containing requests from admin only
+shop.js - file containing normal requests
+shop.html - shop request html page 
+add-product - html page of add-product request
 
 Execute nodejs files using : "node <file name>".
 After installing nodemon (npm) globally : "nodemon <file name>"(if you will try this after installing locally, it will show error).
