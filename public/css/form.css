@@ -1,0 +1,29 @@
+
+main{
+    margin: 20px 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    /* text-align: center; */
+}
+label{
+    font-size: 20px;
+    font-family:'Courier New', Courier, monospace;
+    color: teal;
+}
+input{
+    margin: 20px 2px;
+    padding: 10px;
+    font-size: 20px;
+}
+button{
+    margin : 20px 0px;
+    padding: 10px;
+    font-size: 20px;
+    font-family:'Courier New', Courier, monospace;
+    cursor: pointer;
+}
+button:hover{
+    color:white;
+    background-color: black;
+}
