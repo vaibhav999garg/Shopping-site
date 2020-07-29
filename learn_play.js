@@ -32,6 +32,7 @@ const bodyParser = require('body-parser');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const rootdir = require('./util/path');
+const errorController =require('./controller/error');
 
 const app = express();
 
@@ -53,14 +54,9 @@ app.use((req,res,next) => {
 })
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
-app.use((req,res) => {
-    res.status(404).render('404', {
-        pageTitle:'404 Error',
-        path : '/404'
-    });
-}); 
+app.use(errorController.get404); 
 
 
-app.listen(3000, () => {
+app.listen(9000, () => {
     console.log(`Server started on port`);
 });
