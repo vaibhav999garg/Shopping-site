@@ -1,10 +1,10 @@
-<%- include('includes/head.ejs') %>
+<%- include('../includes/head.ejs') %>
 
     <link rel="stylesheet" href="/css/shop.css">
     <link rel="stylesheet" href="/css/form.css">
 </head>
 <body>
-    <%- include('includes/navigation.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
 
     <main class="items">
         <% if(prods.length > 0){ %>
@@ -17,7 +17,7 @@
                             <p class="product_title"><%= prods.title %></p>
                         </h1>
                         <div class="card_image">
-                            <img src="https://lallahoriye.com.tirzee.com/wp-content/uploads/2019/04/Product_Lg_Type.jpg" alt="product image">
+                            <img src="<%= prods.imageURL %>" alt="<%= prods.title %>">
                         </div>
                         <h2 class="card_content">
                             <h1 class="product_price">$<%= prods.price %></h1>
@@ -35,4 +35,4 @@
     </main>
 
 
-<%- include('includes/end.ejs') %>  
+<%- include('../includes/end.ejs') %>  

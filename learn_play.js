@@ -56,7 +56,6 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(errorController.get404); 
 
-
 app.listen(9000, () => {
     console.log(`Server started on port`);
 });

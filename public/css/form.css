@@ -11,10 +11,13 @@ label{
     font-family:'Courier New', Courier, monospace;
     color: teal;
 }
-input{
+input, textarea{
     margin: 20px 2px;
     padding: 10px;
     font-size: 20px;
+    width: 100%;
+    border: 1px solid rgb(255, 127, 127);
+    border-radius: 2px;
 }
 button{
     margin : 20px 0px;
@@ -26,4 +29,12 @@ button{
 button:hover{
     color:white;
     background-color: black;
+}
+input:focus,
+textarea:focus{
+    outline-color: darkviolet;
+}
+input:hover,
+textarea:hover{
+    outline-color: rgb(91, 207, 37);
 }
