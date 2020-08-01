@@ -3,4 +3,4 @@ exports.get404 = (req,res) => {
         pageTitle:'404 Error',
         path : '/404'
     });
-}
+};

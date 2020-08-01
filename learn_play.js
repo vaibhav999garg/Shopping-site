@@ -55,6 +55,7 @@ app.use((req,res,next) => {
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(errorController.get404); 
+//if we give input wrong image link then gives error... because of request resend by browser.... have to see this.
 
 app.listen(9000, () => {
     console.log(`Server started on port`);
