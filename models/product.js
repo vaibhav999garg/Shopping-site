@@ -9,7 +9,7 @@ const getProductFromFile = callback => {
         if(err){
             callback([]);
         }
-        else{
+        else{ 
             callback(JSON.parse(fileContent));
         }
     });
@@ -17,10 +17,11 @@ const getProductFromFile = callback => {
 
 module.exports = class Product{
     constructor(title, price, description, imageURL){
-        this.title = title,
-        this.price = price,
-        this.description = description,
-        this.imageURL = imageURL
+        this.title = title;
+        this.price = price;
+        this.description = description;
+        this.imageURL = imageURL;
+        this.id = Math.random().toString(); 
     }
 
     save(){
@@ -34,5 +35,13 @@ module.exports = class Product{
 
     static fetchAll(callback){
          getProductFromFile(callback);
+    }
+
+    static findById(id, cb){
+        getProductFromFile(products => {
+            const product = products.find(p => p.id === id);
+            // console.log(product);
+            cb(product);
+        })
     }
 };  

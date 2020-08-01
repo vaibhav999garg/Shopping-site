@@ -11,20 +11,23 @@
             <h1 class="main_heading">List of all products</h1>
             <br>
             <div class="grid">
-                <% prods.forEach(function(prods) { %>
+                <% prods.forEach(function(product) { %>
                     <article class="card product_item">
                         <h1 class="card_header">
-                            <p class="product_title"><%= prods.title %></p>
+                            <p class="product_title"><%= product.title %></p>
                         </h1>
+                        <hr>
                         <div class="card_image">
-                            <img src="<%= prods.imageURL %>" alt="<%= prods.title %>">
+                            <img src="<%= product.imageURL %>" alt="<%= product.title %>">
                         </div>
+                        <hr>
                         <h2 class="card_content">
-                            <h1 class="product_price">$<%= prods.price %></h1>
-                            <h1 class="product_description"><%= prods.description %></h1>
+                            <h1 class="product_price">$<%= product.price %></h1>
+                            <h1 class="product_description"><%= product.description %></h1>
                         </h2>
                         <div class="card_actions">
-                            <button type="submit">Add to cart</button>
+                            <a href="/products/<%= product.id %>">Details</a>
+                            <%- include('../includes/add-to-cart.ejs', {product : product}) %>
                         </div>
                     </article>
                 <% }) %>
