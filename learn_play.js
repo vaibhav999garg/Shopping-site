@@ -48,10 +48,7 @@ app.use(bodyParser.urlencoded({extended: true}) );
 app.use(express.static(path.join(rootdir, 'public'))); 
 
 
-// routing 
-app.use((req,res,next) => {
-    next();
-})
+// routing
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(errorController.get404); 
