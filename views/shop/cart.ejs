@@ -6,6 +6,41 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
 
-    <h1>Page not created - cart!</h1>
+    <main class = "items">
+        <% if(products.length) { %>
+            <h1 class="main_heading">Cart products</h1>
+            <br>
+            <div class="grid">
+                <% products.forEach(function(product) { %>
+                    <article class="card product_item">
+                        <h1 class="card_header">
+                            <p class="product_title"><%= product.productData.title %></p>
+                        </h1>
+                        <hr>
+                        <div class="card_image">
+                            <img src="<%= product.productData.imageURL %>" alt="<%= product.productData.title %>">
+                        </div>
+                        <hr>
+                        <h2 class="card_content">
+                            <h1 class="product_price">$<%= product.productData.price %></h1>
+                            <h1 class="product_description"><%= product.productData.description %></h1>
+                            <h1 class="product_quantity">Quantity - <%= product.qty %></h1>
+                        </h2>
+                        <div class="card_actions">
+                            <a href="/products/<%= product.productData.id %>">Details</a>
+                            <form action="/cart-delete-product" method="POST">
+                                <input type = "hidden" value = "<%= product.productData.id %>" name="productId">
+                                <button type="submit">Delete Product</button>
+                            </form>
+                        </div>
+                    </article>
+                <% }) %>
+            </div>
+            <h1 class="main_heading">Total Price : <%= totalPrice %></h1>
+        <% } else { %>
+            <h1>No Products in Cart!!!</h1>
+        <% } %>
+    </main>
+    
 
-<%- include('../includes/end.ejs') %>  
+<%- include('../includes/end.ejs') %>
