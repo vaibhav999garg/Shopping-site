@@ -33,18 +33,18 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const rootdir = require('./util/path');
 const errorController =require('./controller/error');
+const sequelize = require('./util/database');
 
 const app = express();
 
 // to use templates
 app.set('view engine', 'ejs');
 // what to search, where to search(folder name), currently same, no need to write
-app.set('views', 'views');
-
+// app.set('views', 'views');
 
 // to store data in the body
-app.use(bodyParser.urlencoded({extended: true}) );
-// to statically import files in the html pages
+app.use(bodyParser.urlencoded({extended: true}));
+// to statically import files
 app.use(express.static(path.join(rootdir, 'public'))); 
 
 
@@ -54,6 +54,17 @@ app.use(shopRoutes);
 app.use(errorController.get404); 
 //if we give input wrong image link then gives error... because of request resend by browser.... have to see this.
 
-app.listen(9000, () => {
-    console.log(`Server started on port`);
-});
+sequelize.sync()
+    .then(result => {
+        // console.log(result);
+        app.listen(9000, () => {
+            console.log(`Server started on port`);
+        });
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+
+
+

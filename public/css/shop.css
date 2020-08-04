@@ -66,7 +66,7 @@ body{
 
 .card{
     box-shadow: 1px 2px 8px 1px red;
-    width: 24%;
+    width: 300px;
     margin: 10px;
 }
 .card_header, 
