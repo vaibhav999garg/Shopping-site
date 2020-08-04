@@ -62,7 +62,7 @@ sequelize.sync()
         });
     })
     .catch(err => {
-        console.log(err);
+        console.log("Error in main app : "+err);
     });
 
 

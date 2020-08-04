@@ -10,7 +10,7 @@ exports.getProducts = (req,res,next) =>{
                 path : '/products'
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log("Error in getProducts : "+err));
 };
 
 exports.getProduct = (req,res,next) => {
@@ -23,7 +23,7 @@ exports.getProduct = (req,res,next) => {
                 path : '/products'
             });
         })
-        .catch(err => console.log("Error in getProduct " + err));
+        .catch(err => console.log("Error in getProduct : " + err));
     
 };
 
@@ -74,7 +74,7 @@ exports.getIndex = (req,res,next) =>{
                 path : '/'
             });
         })
-        .catch(err => console.log(err));    
+        .catch(err => console.log("Error in getIndex : "+err));    
 };
 
 exports.getCheckout = (req,res,next) => {
