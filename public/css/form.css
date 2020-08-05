@@ -12,23 +12,27 @@ label{
     color: teal;
 }
 input, textarea{
-    margin: 20px 2px;
-    padding: 10px;
-    font-size: 20px;
+    margin: 10px 2px;
+    padding: 9px;
+    font-size: 15px;
     width: 100%;
     border: 1px solid rgb(255, 127, 127);
     border-radius: 2px;
 }
-button{
-    margin : 20px 0px;
+button, a{
+    margin : 7px 1.5px;
     padding: 10px;
-    font-size: 20px;
-    font-family:'Courier New', Courier, monospace;
+    font-size: 15px;
     cursor: pointer;
+    color: blue;
+}
+button{
+    background-color: white;
+    border: 1px solid blue;
 }
 button:hover{
     color:white;
-    background-color: black;
+    background-color: blue;
 }
 input:focus,
 textarea:focus{

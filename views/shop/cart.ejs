@@ -7,36 +7,36 @@
     <%- include('../includes/navigation.ejs') %>
 
     <main class = "items">
-        <% if(products.length) { %>
+        <% if(products && products.length > 0) { %>
             <h1 class="main_heading">Cart products</h1>
             <br>
             <div class="grid">
                 <% products.forEach(function(product) { %>
                     <article class="card product_item">
                         <h1 class="card_header">
-                            <p class="product_title"><%= product.productData.title %></p>
+                            <p class="product_title"><%= product.title %></p>
                         </h1>
                         <hr>
                         <div class="card_image">
-                            <img src="<%= product.productData.imageURL %>" alt="<%= product.productData.title %>">
+                            <img src="<%= product.imageURL %>" alt="<%= product.title %>">
                         </div>
                         <hr>
                         <h2 class="card_content">
-                            <h1 class="product_price">$<%= product.productData.price %></h1>
-                            <h1 class="product_description"><%= product.productData.description %></h1>
-                            <h1 class="product_quantity">Quantity - <%= product.qty %></h1>
+                            <h1 class="product_price">$<%= product.price %></h1>
+                            <h1 class="product_description"><%= product.description %></h1>
+                            <h1 class="product_quantity">Quantity - <%= product.cartItem.quantity %></h1>
                         </h2>
                         <div class="card_actions">
-                            <a href="/products/<%= product.productData.id %>">Details</a>
+                            <a href="/products/<%= product.id %>">Details</a>
                             <form action="/cart-delete-product" method="POST">
-                                <input type = "hidden" value = "<%= product.productData.id %>" name="productId">
+                                <input type = "hidden" value = "<%= product.id %>" name="productId">
                                 <button type="submit">Delete Product</button>
                             </form>
                         </div>
                     </article>
                 <% }) %>
             </div>
-            <h1 class="main_heading">Total Price : <%= totalPrice %></h1>
+            
         <% } else { %>
             <h1>No Products in Cart!!!</h1>
         <% } %>

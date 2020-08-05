@@ -13,13 +13,16 @@ exports.postAddProduct = (req,res,next) =>{
     const price = req.body.price;
     const description = req.body.description;
     const imageURL = req.body.imageURL;
-    Product.create({
-        title : title,
-        price : price,
-        description : description,
-        imageURL : imageURL
-    })
+    req.user
+        .createProduct({
+            title : title,
+            price : price,
+            description : description,
+            imageURL : imageURL
+        })
         .then(() => {
+            // console.log(Object.keys((req.user)._proto_));
+
             res.redirect('/admin/products');
         })
         .catch(err => console.log("Error in postAddProduct : "+err));;
@@ -31,8 +34,11 @@ exports.getEditProduct = (req,res,next) => {
         return  res.redirect('/');
     }
     const prodId = req.params.productId;
-    Product.findByPk(prodId)
-        .then(product => {
+    req.user
+        .getProducts({where: {id : prodId}})
+    // Product.findByPk(prodId)
+        .then(products => {
+            const product = products[0];
             if(!product){
                 return  res.redirect('/');
             }
@@ -59,10 +65,10 @@ exports.postEditProduct = (req,res,next) => {
             product.price = price;
             product.description = description;
             product.imageURL = imageURL;
+            
             return product.save();
         })
         .then(result => {
-            // console.log(result);
             res.redirect('/admin/products');
         })
         .catch(err => console.log("Error in postEditProduct : " + err));
@@ -81,7 +87,8 @@ exports.postDeleteProduct = (req, res, next) => {
 }
 
 exports.getProducts = (req,res,next) =>{
-    Product.findAll()
+    req.user
+        .getProducts()
         .then(products => {
             res.render('admin/products', {
                 prods : products,

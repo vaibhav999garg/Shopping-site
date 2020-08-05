@@ -50,11 +50,7 @@ body{
     text-align: center;
 }
 .main_heading{
-    font-size : 75px;
-}
-.product_items{
-    font-size: 25px;
-    font-weight: bold;
+    font-size : 40px;
 }
 
 .grid{
@@ -69,37 +65,43 @@ body{
     width: 300px;
     margin: 10px;
 }
-.card_header, 
-.card_content{
-    padding: 10px;
-}
 
 .card_header p,
 .card_content p
 .card_content h1{
     margin:0px;
+    padding: 10px 10px;
 }
 
 .card_image{
     width: 100%;
+    margin : 0px;
+    padding: 0px;
 }
 .card_image img{
+    margin : 0px;
+    padding: 0px;
     width: 100%;
 }
+
+.card_actions{
+    display: inline-flex;
+}
+
 .card_actions button,
 .card_actions a {
     border: 1px solid blue;
     border-radius: 2px;
-    margin: 10px 10px;
     color: blue;
-    padding: 10px;
-    display: inline-flex;
+    padding: 5px;
     text-decoration: none;
+    background-color: white;
+    margin: 0px 5px 10px 5px;
 }
 
 h1,p{
     text-align: center;
-    font-size: 23px;
+    font-size: 19px;
 }
 
 /* --------------------------------------hover-------------------------------------- */

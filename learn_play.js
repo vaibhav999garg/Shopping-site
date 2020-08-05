@@ -20,43 +20,67 @@
 
 
 
-
-//node modules - some are included by express itself
 const path = require('path');
 
-// third party modules
 const express = require('express');
 const bodyParser = require('body-parser');
 
-//my own modules
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const rootdir = require('./util/path');
 const errorController =require('./controller/error');
 const sequelize = require('./util/database');
+const Product = require('./models/product');
+const User = require('./models/user');
+const Cart = require('./models/cart');
+const CartItem = require('./models/cart-item');
+
 
 const app = express();
 
-// to use templates
 app.set('view engine', 'ejs');
 // what to search, where to search(folder name), currently same, no need to write
 // app.set('views', 'views');
 
-// to store data in the body
 app.use(bodyParser.urlencoded({extended: true}));
-// to statically import files
 app.use(express.static(path.join(rootdir, 'public'))); 
 
-
-// routing
+app.use((req,res,next) => {
+    User.findByPk(1)
+        .then(user => {
+            req.user = user;
+            next();
+        })
+        .catch(err => console.log("Error in user miiddleware : " + err));
+});
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(errorController.get404); 
-//if we give input wrong image link then gives error... because of request resend by browser.... have to see this.
 
-sequelize.sync()
+Product.belongsTo(User, {constraints : true, onDelele : 'CASCADE'});
+User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, {through : CartItem});
+Product.belongsToMany(Cart, {through : CartItem});
+
+
+sequelize
+    // .sync({force : true})
+    .sync()
     .then(result => {
-        // console.log(result);
+        return User.findByPk(1);
+    })
+    .then(user => {
+        if(!user){
+            return User.create({name : 'Dummy', email : 'bummy@bummy.com'});
+        }
+        return user;
+    })
+    .then(user => {
+        return user.createCart();
+    })
+    .then(cart => {
         app.listen(9000, () => {
             console.log(`Server started on port`);
         });
