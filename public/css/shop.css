@@ -35,6 +35,13 @@ body{
     font-size: 15px;
 }
 
+a{
+    margin : 7px 1.5px;
+    padding: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    color: blue;
+}
 .main_nav_list_item a {
     text-decoration: none;
     color : rgb(255, 136, 0);
@@ -47,6 +54,10 @@ body{
 .items{
     margin: 20px;
     display: block;
+    /* text-align: center; */
+}
+
+.centered{
     text-align: center;
 }
 .main_heading{

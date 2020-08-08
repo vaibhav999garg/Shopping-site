@@ -6,6 +6,36 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
 
-    <h1>Page not created - orders!</h1>
+    <main class = "items centered">
+        <% if(orders && orders.length > 0) { %>
+            <h1 class="main_heading">Order products</h1>
+            <br>
+            <% orders.forEach(function(order) { %>
+                <h1>#<%= order._id %></h1>
+                <div class="grid">
+                    <% order.items.forEach(function(product) { %>
+                        <article class="card product_item">
+                            <h1 class="card_header">
+                                <p class="product_title"><%= product.title %></p>
+                            </h1>
+                            <hr>
+                            <div class="card_image">
+                                <img src="<%= product.imageURL %>" alt="<%= product.title %>">
+                            </div>
+                            <hr>
+                            <h2 class="card_content">
+                                <h1 class="product_price">$<%= product.price %></h1>
+                                <h1 class="product_description"><%= product.description %></h1>
+                                <h1 class="product_quantity">Quantity - <%= product.quantity %></h1>
+                            </h2>
+                        </article>
+                    <% }) %>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <h1>No Products to Order!!!</h1>
+        <% } %>
+    </main>
+    
 
-<%- include('../includes/end.ejs') %>  
+<%- include('../includes/end.ejs') %>

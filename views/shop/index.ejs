@@ -6,8 +6,8 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
 
-    <main class="items">
-        <% if(prods.length > 0){ %>
+    <main class="items centered">
+        <% if(prods && prods.length > 0){ %>
             <h1 class="main_heading">List of all products</h1>
             <br>
             <div class="grid">
@@ -24,7 +24,7 @@
                             <h1 class="product_description"><%= product.description %></h1>
                         </h2>
                         <div class="card_actions">
-                            <a href="/products/<%= product.id %>">Details</a>
+                            <a href="/products/<%= product._id %>">Details</a>
                             <%- include('../includes/add-to-cart.ejs', {product : product}) %>
                         </div>
                     </article>

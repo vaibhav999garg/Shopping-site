@@ -1,8 +1,19 @@
 const Product = require('../models/product');
-const Cart = require('../models/cart');
+
+exports.getIndex = (req,res,next) =>{
+    Product.fetchAll()
+        .then(products => {
+            res.render('shop/index', {
+                prods : products,
+                pageTitle : 'Shop Index',
+                path : '/'
+            });
+        })
+        .catch(err => console.log("Error in getIndex in shopController : "+err));    
+};
 
 exports.getProducts = (req,res,next) =>{   
-    Product.findAll()
+    Product.fetchAll()
         .then(products => {
             res.render('shop/product-list', {
                 prods : products,
@@ -10,12 +21,12 @@ exports.getProducts = (req,res,next) =>{
                 path : '/products'
             });
         })
-        .catch(err => console.log("Error in getProducts : "+err));
+        .catch(err => console.log("Error in getProducts in shopController : "+err));
 };
 
 exports.getProduct = (req,res,next) => {
     const prodId = req.params.productId;
-    Product.findByPk(prodId)
+    Product.fetchById(prodId)
         .then(product => {
             res.render('shop/product-details', {
                 pageTitle : product.title,
@@ -23,17 +34,12 @@ exports.getProduct = (req,res,next) => {
                 path : '/products'
             });
         })
-        .catch(err => console.log("Error in getProduct : " + err));
-    
+        .catch(err => console.log("Error in getProduct in shopController : " + err));
 };
 
 exports.getCart = (req,res, next) => {
     req.user
         .getCart()
-        .then(cart => {
-            // console.log("\n\n\n" + Object.keys(cart));
-            return cart.getProducts();
-        })
         .then(products => {
             res.render('shop/cart', {
                 path : '/cart',
@@ -42,82 +48,59 @@ exports.getCart = (req,res, next) => {
                 // totalPrice : cartPrice
             });
         })
-        .catch(err => console.log("Error in getCart : "+err));
+        .catch(err => console.log("Error in getCart in shopController : "+err));
 };
 
 exports.postCart = (req, res, next) => {
     const productId = req.body.productId;
-    let fetchedCart;
-    let newQuantity = 1;
-    req.user
-        .getCart()
-        .then(cart => {
-            fetchedCart = cart;
-            return cart.getProducts({where : {id : productId}});
-        })
-        .then(products => {
-            let product;
-            if(products && products.length){
-                product = products[0];
-            }
-            if(product){
-                const oldQuantity = product.cartItem.quantity;
-                newQuantity = oldQuantity + 1;
-                return product;
-            }
-            else{
-                return Product.findByPk(productId);
-            }
-        })
+    Product.fetchById(productId)
         .then(product => {
-            return fetchedCart.addProduct(product, {through : {quantity : newQuantity}});
-        })
-        .then(() => {
+            return req.user.addToCart(product)
+        .then(result => {
+            // console.log(result);
             res.redirect('/cart');
         })
-        .catch(err  => console.log("Error in postCart" + err));
+        .catch(err  => console.log("Error in postCart in shopController : " + err));
+    })
+    
 };
 
 exports.postCartDeleteProduct = (req,res , next) => {
     const productId = req.body.productId;
     req.user
-        .getCart()
-        .then(cart => {
-            return cart.getProducts({where : {id : productId}});
-            
-        })
-        .then(products => {
-            const product = products[0];
-            product.cartItem.destroy();
-        })
+        .deleteProductFromCart(productId)
         .then(() => {
             res.redirect('/cart');
         })
-        .catch(err => console.log("Error in postCartDeleleProduct : " + err));
+        .catch(err => console.log("Error in postCartDeleleProduct in shopController : " + err));
 }
 
-exports.getIndex = (req,res,next) =>{
-    Product.findAll()
-        .then(products => {
-            res.render('shop/index', {
-                prods : products,
-                pageTitle : 'Shop Index',
-                path : '/'
-            });
-        })
-        .catch(err => console.log("Error in getIndex : "+err));    
-};
-
-exports.getCheckout = (req,res,next) => {
-    res.render('shop/checkout', {
-        path : '/checkout',
-        pageTitle : 'Checkout'
-    });
-};
+// exports.getCheckout = (req,res,next) => {
+//     res.render('shop/checkout', {
+//         path : '/checkout',
+//         pageTitle : 'Checkout'
+//     });
+// };
 
 exports.getOrders = (req,res, next) => {
-    res.render('shop/orders', {
-        path : '/orders',
-        pageTitle : 'Your orders'
-    });
+    req.user
+        .getOrders()
+        .then(orders => {
+            res.render('shop/orders', {
+                path : '/orders',
+                pageTitle : 'Your orders',
+                orders : orders
+            });
+        })
+        .catch(err => console.log(err));
 };
+
+exports.postCreateOrder = (req, res, next) => {
+    let fetchedCart;
+    req.user
+        .createOrder()
+        .then(result => {
+            res.redirect('/orders');
+        })
+        .catch(err => console.log("Error in postCreateOrder : " + err));
+}

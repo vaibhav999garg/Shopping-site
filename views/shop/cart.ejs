@@ -6,7 +6,7 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
 
-    <main class = "items">
+    <main class = "items centered">
         <% if(products && products.length > 0) { %>
             <h1 class="main_heading">Cart products</h1>
             <br>
@@ -24,19 +24,21 @@
                         <h2 class="card_content">
                             <h1 class="product_price">$<%= product.price %></h1>
                             <h1 class="product_description"><%= product.description %></h1>
-                            <h1 class="product_quantity">Quantity - <%= product.cartItem.quantity %></h1>
+                            <h1 class="product_quantity">Quantity - <%= product.quantity %></h1>
                         </h2>
                         <div class="card_actions">
-                            <a href="/products/<%= product.id %>">Details</a>
+                            <a href="/products/<%= product._id %>">Details</a>
                             <form action="/cart-delete-product" method="POST">
-                                <input type = "hidden" value = "<%= product.id %>" name="productId">
+                                <input type = "hidden" value = "<%= product._id %>" name="productId">
                                 <button type="submit">Delete Product</button>
                             </form>
                         </div>
                     </article>
                 <% }) %>
             </div>
-            
+            <form action="/create-order", method="POST">
+                <button type="submit">Order Now!</button>
+            </form>
         <% } else { %>
             <h1>No Products in Cart!!!</h1>
         <% } %>
