@@ -13,20 +13,20 @@
             <% orders.forEach(function(order) { %>
                 <h1>#<%= order._id %></h1>
                 <div class="grid">
-                    <% order.items.forEach(function(product) { %>
+                    <% order.products.forEach(function(productInfo) { %>
                         <article class="card product_item">
                             <h1 class="card_header">
-                                <p class="product_title"><%= product.title %></p>
+                                <p class="product_title"><%= productInfo.product.title %></p>
                             </h1>
                             <hr>
                             <div class="card_image">
-                                <img src="<%= product.imageURL %>" alt="<%= product.title %>">
+                                <img src="<%= productInfo.product.imageURL %>" alt="<%= productInfo.product.title %>">
                             </div>
                             <hr>
                             <h2 class="card_content">
-                                <h1 class="product_price">$<%= product.price %></h1>
-                                <h1 class="product_description"><%= product.description %></h1>
-                                <h1 class="product_quantity">Quantity - <%= product.quantity %></h1>
+                                <h1 class="product_price">$<%= productInfo.product.price %></h1>
+                                <h1 class="product_description"><%= productInfo.product.description %></h1>
+                                <h1 class="product_quantity">Quantity - <%= productInfo.quantity %></h1>
                             </h2>
                         </article>
                     <% }) %>

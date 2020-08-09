@@ -14,22 +14,22 @@
                 <% products.forEach(function(product) { %>
                     <article class="card product_item">
                         <h1 class="card_header">
-                            <p class="product_title"><%= product.title %></p>
+                            <p class="product_title"><%= product.productId.title %></p>
                         </h1>
                         <hr>
                         <div class="card_image">
-                            <img src="<%= product.imageURL %>" alt="<%= product.title %>">
+                            <img src="<%= product.productId.imageURL %>" alt="<%= product.productId.title %>">
                         </div>
                         <hr>
                         <h2 class="card_content">
-                            <h1 class="product_price">$<%= product.price %></h1>
-                            <h1 class="product_description"><%= product.description %></h1>
+                            <h1 class="product_price">$<%= product.productId.price %></h1>
+                            <h1 class="product_description"><%= product.productId.description %></h1>
                             <h1 class="product_quantity">Quantity - <%= product.quantity %></h1>
                         </h2>
                         <div class="card_actions">
-                            <a href="/products/<%= product._id %>">Details</a>
+                            <a href="/products/<%= product.productId._id %>">Details</a>
                             <form action="/cart-delete-product" method="POST">
-                                <input type = "hidden" value = "<%= product._id %>" name="productId">
+                                <input type = "hidden" value = "<%= product.productId._id %>" name="productId">
                                 <button type="submit">Delete Product</button>
                             </form>
                         </div>

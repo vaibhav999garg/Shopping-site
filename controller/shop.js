@@ -1,7 +1,8 @@
 const Product = require('../models/product');
+const Order = require('../models/order');
 
 exports.getIndex = (req,res,next) =>{
-    Product.fetchAll()
+    Product.find()
         .then(products => {
             res.render('shop/index', {
                 prods : products,
@@ -13,7 +14,7 @@ exports.getIndex = (req,res,next) =>{
 };
 
 exports.getProducts = (req,res,next) =>{   
-    Product.fetchAll()
+    Product.find()
         .then(products => {
             res.render('shop/product-list', {
                 prods : products,
@@ -26,7 +27,7 @@ exports.getProducts = (req,res,next) =>{
 
 exports.getProduct = (req,res,next) => {
     const prodId = req.params.productId;
-    Product.fetchById(prodId)
+    Product.findById(prodId)//converts id to ObjectId itself
         .then(product => {
             res.render('shop/product-details', {
                 pageTitle : product.title,
@@ -37,10 +38,26 @@ exports.getProduct = (req,res,next) => {
         .catch(err => console.log("Error in getProduct in shopController : " + err));
 };
 
+
+exports.postCart = (req, res, next) => {
+    const productId = req.body.productId;
+    Product.findById(productId)
+        .then(product => {
+            return req.user.addToCart(product);
+        })
+        .then(result => {
+            // console.log(result);
+            res.redirect('/cart');
+        })
+        .catch(err  => console.log("Error in postCart in shopController : " + err));
+};
+
 exports.getCart = (req,res, next) => {
     req.user
-        .getCart()
-        .then(products => {
+        .populate('cart.items.productId')
+        .execPopulate()
+        .then(user => {
+            products = user.cart.items;
             res.render('shop/cart', {
                 path : '/cart',
                 pageTitle : 'Your Cart',
@@ -49,20 +66,6 @@ exports.getCart = (req,res, next) => {
             });
         })
         .catch(err => console.log("Error in getCart in shopController : "+err));
-};
-
-exports.postCart = (req, res, next) => {
-    const productId = req.body.productId;
-    Product.fetchById(productId)
-        .then(product => {
-            return req.user.addToCart(product)
-        .then(result => {
-            // console.log(result);
-            res.redirect('/cart');
-        })
-        .catch(err  => console.log("Error in postCart in shopController : " + err));
-    })
-    
 };
 
 exports.postCartDeleteProduct = (req,res , next) => {
@@ -75,16 +78,34 @@ exports.postCartDeleteProduct = (req,res , next) => {
         .catch(err => console.log("Error in postCartDeleleProduct in shopController : " + err));
 }
 
-// exports.getCheckout = (req,res,next) => {
-//     res.render('shop/checkout', {
-//         path : '/checkout',
-//         pageTitle : 'Checkout'
-//     });
-// };
+exports.postCreateOrder = (req, res, next) => {
+    req.user
+        .populate('cart.items.productId')
+        .execPopulate()
+        .then(user => {
+            products = user.cart.items.map(prod => {
+                return {product : {...prod.productId._doc}, quantity : prod.quantity}
+            }); 
+            const order = new Order({
+                products : products,
+                user : {
+                    name : req.user.name,
+                    userId : req.user
+                }
+            });
+            order.save();
+        })
+        .then(result => {
+            req.user.clearCart(); 
+        })
+        .then(result => {
+            res.redirect('/orders');
+        })
+        .catch(err => console.log("Error in postCreateOrder : " + err));
+}   
 
 exports.getOrders = (req,res, next) => {
-    req.user
-        .getOrders()
+    Order.find({'user.userId' : req.user._id})
         .then(orders => {
             res.render('shop/orders', {
                 path : '/orders',
@@ -95,12 +116,9 @@ exports.getOrders = (req,res, next) => {
         .catch(err => console.log(err));
 };
 
-exports.postCreateOrder = (req, res, next) => {
-    let fetchedCart;
-    req.user
-        .createOrder()
-        .then(result => {
-            res.redirect('/orders');
-        })
-        .catch(err => console.log("Error in postCreateOrder : " + err));
-}
+// exports.getCheckout = (req,res,next) => {
+//     res.render('shop/checkout', {
+//         path : '/checkout',
+//         pageTitle : 'Checkout'
+//     });
+// };
