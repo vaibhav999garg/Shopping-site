@@ -3,7 +3,7 @@ Here I am using VS code. You can use anyone you want to, its your choice.
 
 
 
-gJust pull and run the following as it is : 
+Just pull and run the following as it is : 
 
 npm init
 
