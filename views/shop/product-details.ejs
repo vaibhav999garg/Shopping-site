@@ -1,6 +1,4 @@
 <%- include('../includes/head.ejs') %>
-
-    <link rel="stylesheet" href="/css/shop.css">
     <link rel="stylesheet" href="/css/form.css">
 </head>
 <body>
@@ -20,7 +18,9 @@
                     <h1 class="product_description"><%= product.description %></h1>
                 </h2>
                 <div class="card_actions">
-                    <%- include('../includes/add-to-cart.ejs', {product : product}) %>
+                    <% if (isAuthenticated) { %>
+                        <%- include('../includes/add-to-cart.ejs', {product : product}) %>
+                    <% } %>
                 </div>
             </article>
         </div>

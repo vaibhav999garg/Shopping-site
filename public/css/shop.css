@@ -21,6 +21,7 @@ body{
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .main_nav_list{
     list-style: none;
@@ -42,9 +43,18 @@ a{
     cursor: pointer;
     color: blue;
 }
-.main_nav_list_item a {
+.main_nav_list_item a{
     text-decoration: none;
     color : rgb(255, 136, 0);
+}
+.main_nav_list_item button{
+    text-decoration: none;
+    color : rgb(255, 136, 0);
+    background-color: rgb(36, 93, 26);
+    border: none;
+    font-size: 15px;
+    margin : 0px;
+    padding: 0px;
 }
 .main_nav_list_item a.active{
     color: white;
@@ -86,6 +96,7 @@ a{
 
 .card_image{
     width: 100%;
+    height: 300px;
     margin : 0px;
     padding: 0px;
 }
@@ -110,15 +121,22 @@ a{
     margin: 0px 5px 10px 5px;
 }
 
-h1,p{
-    text-align: center;
+h1{
     font-size: 19px;
+}
+p{
+    font-size: 16px;
 }
 
 /* --------------------------------------hover-------------------------------------- */
 .main_nav_list_item a:hover,
 .main_nav_list_item a:active{
     color: white;
+}
+
+.main_nav_list_item button:hover{
+    color: white;
+    background-color: rgb(36, 93, 26);
 }
 
 .card_actions button:hover,
@@ -131,3 +149,11 @@ h1,p{
 /*---------------------------------------active----------------------------------------*/
 
 
+
+
+
+
+/*--------------------------------------focus-------------------------------------------*/
+.main_nav_list_item button:focus{
+    outline: none;
+}

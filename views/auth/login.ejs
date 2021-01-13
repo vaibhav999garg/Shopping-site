@@ -1,0 +1,20 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/form.css">
+</head>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+    <form action="/login" method="POST">
+        <label>Username</label>
+        <br>
+        <input type="text" name="Username" placeholder="Name" required>
+        <br>
+        <label>Password</label>
+        <br>
+        <input type="password" name="password" placeholder="Password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+    </main>
+
+<%- include('../includes/end.ejs') %>

@@ -4,7 +4,8 @@ exports.getAddProduct = (req,res,next) => {
     res.render('admin/edit-product', {
         path: '/admin/add-product',
         pageTitle:'Add-Product',
-        editing : false
+        editing : false,
+        isAuthenticated : req.session.isLoggedIn
     });
 };
 
@@ -35,7 +36,8 @@ exports.getProducts = (req,res,next) =>{
             res.render('admin/products', {
                 prods : products,
                 pageTitle : 'Admin products',
-                path : '/admin/products'
+                path : '/admin/products',
+                isAuthenticated : req.session.isLoggedIn
             });
         })
         .catch(err => console.log("Error in admin products : " + err));
@@ -56,8 +58,9 @@ exports.getEditProduct = (req,res,next) => {
             res.render('admin/edit-product', {
                 path: '/admin/edit-product',
                 pageTitle:'Edit-Product',
-                editing : "true",
-                product : product
+                editing : editMode  ,
+                product : product,
+                isAuthenticated : req.session.isLoggedIn
             });
         })
         .catch(err => console.log("Error in getEditProduct : "+err));
@@ -86,9 +89,8 @@ exports.postEditProduct = (req,res,next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
     const productId = req.body.productId;
-    req.user.deleteProductFromCart(productId);
     Product.findByIdAndRemove(productId)
-        .then(result => {
+        .then(result => {   
             res.redirect('/admin/products');
         })
         .catch(err => console.log("Error in postDeleteProduct" + err));
