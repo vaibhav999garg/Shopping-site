@@ -15,7 +15,7 @@ const authRoutes = require('./routes/auth');
 const errorController =require('./controller/error');
 const User = require('./models/user');
 
-const MONGODB_URI = 'mongodb+srv://vaibhav-garg:VaibhavGarg123@cluster0.z3zwj.mongodb.net/test?retryWrites=true&w=majority';
+const MONGODB_URI = '//your link';
 
 const rootdir = require('./util/path');
 
