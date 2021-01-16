@@ -27,14 +27,17 @@
                 <li class = "main_nav_list_item">
                     <a class="<%= path === '/login' ? 'active' : '' %> login" href="/login">Login</a>
                 </li>
+                <li class = "main_nav_list_item">
+                    <a class="<%= path === '/signup' ? 'active' : '' %> login" href="/signup">Signup</a>
+                </li>
             <% } else { %>
                 <li class = "main_nav_list_item">
                     <form action = "/logout" method = "POST">
+                        <input type = "hidden" name = "_csrf" value="<%= csrfToken %>">
                         <button type = "submit">Logout</button>
                     </form>
                 </li>
             <% } %>
-
         </ul>
     </nav>
 </header>

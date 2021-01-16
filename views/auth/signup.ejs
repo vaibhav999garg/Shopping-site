@@ -7,18 +7,21 @@
         <div class="error-message"><%= errorMessage %></div>
     <% } %>
     <main>
-        
-        <form action="/login" method="POST">
-            <label>Username</label>
+        <form action="/signup" method="POST">
+            <label>E-mail</label>
             <br>
-            <input type="email" name="username" placeholder="username" required>
+            <input type="email" name="email" placeholder="abc@gmail.com" required>
             <br>
             <label>Password</label>
             <br>
             <input type="password" name="password" placeholder="Password" required>
             <br>
+            <label>Confirm Password</label>
+            <br>
+            <input type="password" name="confirmPassword" placeholder="confirm password" required>
+            <br>
             <input type = "hidden" name = "_csrf" value="<%= csrfToken %>">
-            <button type="submit">Login</button>
+            <button type="submit">Signup</button>
         </form>
     </main>
 

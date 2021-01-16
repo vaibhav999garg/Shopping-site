@@ -54,3 +54,16 @@ input:hover,
 textarea:hover{
     outline-color: rgb(91, 207, 37);
 }
+
+
+/* -------------------------------------------error message-------------------------------------------- */
+
+.error-message{
+    background-color: rgb(255, 160, 160);
+    text-align: center;
+    display: block;
+    color : rgb(177, 0, 0);
+    padding : 20px;
+    margin : 0px 20%;
+    margin-top: 10px;
+}

@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const csrf = require('csurf');
+const flash = require('connect-flash');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -13,7 +15,7 @@ const authRoutes = require('./routes/auth');
 const errorController =require('./controller/error');
 const User = require('./models/user');
 
-const MONGODB_URI = 'your database link form mongoDB site';
+const MONGODB_URI = 'mongodb+srv://vaibhav-garg:VaibhavGarg123@cluster0.z3zwj.mongodb.net/test?retryWrites=true&w=majority';
 
 const rootdir = require('./util/path');
 
@@ -22,6 +24,8 @@ const store = new MongoDBStore({
     uri: MONGODB_URI,
     collections: 'sessions'
 });
+
+const csrfProtection = csrf();
 
 app.set('view engine', 'ejs');
 // what to search, where to search(folder name), currently same, no need to write
@@ -37,6 +41,9 @@ app.use(session({
     //can also set cookie like max-age or expires etc.
     }
 ));
+
+app.use(csrfProtection);
+app.use(flash());
 
 app.use((req,res,next) => {
     if(!req.session.user){
@@ -54,34 +61,26 @@ app.use((req,res,next) => {
         .catch(err => console.log("Error in user miiddleware : " + err));
 }); 
 
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
+
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 app.use(errorController.get404);
 
 
-
+mongoose.set('useFindAndModify', false);
 mongoose
     .connect(
-        MONGODB_URI,
-        { useUnifiedTopology: true }
+        MONGODB_URI, 
+        { useUnifiedTopology: true,
+        useNewUrlParser : true }
     )
-    .then(() => {
-        User.findOne()
-            .then(user => {
-                if(!user){
-                    const user = new User({
-                        name : 'Vg',
-                        email : 'test@test.com',
-                        cart : {
-                            items : []
-                        }
-                    });
-                    user.save();
-                }
-            })
-            .catch(err => 'Error in creating user in main : ' + err);
-        
+    .then(result => {
         app.listen(5000, () => {
             console.log(`Server started at port`);
         });
